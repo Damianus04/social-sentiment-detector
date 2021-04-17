@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://dummyimage.com/600x400/781f78/e6e6ed&text=Online+Sentiment+Detector">
+
+    <title>Online Sentiment Detector</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css" rel="stylesheet">
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+
+  </head>
+
+
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-1">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Online Sentiment Detector</a>
+      <!-- keyword search -->
+      <form action="{{ url_for('keyword_search')}}" method="POST" class="form-inline my-2 my-lg-0">
+        <input id="text" name="text" class="form-control mr-sm-2" type="search" 
+        placeholder="Search Keyword" aria-label="Search" id="inpkeyword" type="submit">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <!-- end of keyword search -->
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+    <!-- END OF NAVBAR -->
+    
+
+    <!-- MAIN BODY -->
+    {% block content %} 
+
+    {% block page_content %}{% endblock %}
+
+    {% endblock %} 
+    <!-- END OF MAIN BODY -->
+
+    <!-- FOOTER -->
+    <footer class="footer text-muted bg-dark" style="margin-bottom:20pt; margin-top:20pt">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>
+          This template &copy; Bootstrap
+        </p>
+        <p>
+          New to Bootstrap?
+          <a href="https://getbootstrap.com/">Visit the homepage</a> or read our
+          <a href="/docs/4.5/getting-started/introduction/"
+            >getting started guide</a
+          >.
+        </p>
+      </div>
+    </footer>
+    <!-- END OF FOOTER -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- My JavaScript -->
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script>
+      feather.replace()
+    </script>
+
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    
+    <!-- Word Cloud -->
+    <script>
+      // Global parameters:
+      // do not resize the chart canvas when its container does (keep at 600x400px)
+      Chart.defaults.global.responsive = true;
+      
+      // define the chart data
+      var chartData = {
+        labels : [{% for item in words %}
+                  "{{item}}",
+                  {% endfor %}],
+        datasets : [{
+            label: 'words frequency',
+            fill: true,
+            lineTension: 0.1,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data : [{% for item in words_frequency %}
+                      {{item}},
+                    {% endfor %}],
+            spanGaps: false
+        }]
+      }
+      
+      // get chart canvas
+      var ctx = document.getElementById("myChartWordCloud").getContext("2d");
+      
+      // create the chart using the chart canvas
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: chartData,
+      });
+    </script>
+
+    <!-- Tweet Sentiment-->
+    <script>
+        // do not resize the chart canvas when its container does (keep at 600x400px)
+        Chart.defaults.global.responsive = true;
+        
+        // define the chart data
+         var  data = {
+            datasets: [{
+                data: [{% for item in tweet_sentiment_values %}
+                        {{item}},
+                       {% endfor %}],
+                backgroundColor: ["#FF4136", "#2ECC40", "#7FDBFF"]
+                }],
+                
+            
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+            labels: [{% for item in tweet_sentiment_label %}
+                      "{{item}}",
+                    {% endfor %}],
+          };
+        
+        // get chart canvas
+        var ctx = document.getElementById("myChartSentiment").getContext("2d");
+        
+        // create the chart using the chart canvas
+        var myChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: data,
+          options: {
+                      responsive: true,
+                      title:{
+                          display: true,
+                      }
+                   }
+        });
+      </script>
+    
+      <!-- Conversations Trend-->
+    <script>
+        // do not resize the chart canvas when its container does (keep at 600x400px)
+        Chart.defaults.global.responsive = true;
+        
+        // define the chart data
+        var chartData = {
+          labels : [{% for item in tweet_time_label %}
+                    "{{item}}",
+                    {% endfor %}],
+          datasets : [{
+              label: '{{ tweet_legend }}',
+              fill: true,
+              lineTension: 0.1,
+              backgroundColor: "rgba(75,192,192,0.4)",
+              borderColor: "rgba(75,192,192,1)",
+              borderCapStyle: 'butt',
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "rgba(75,192,192,1)",
+              pointBackgroundColor: "#fff",
+              pointBorderWidth: 1,
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              pointHoverBorderWidth: 2,
+              pointRadius: 1,
+              pointHitRadius: 10,
+              data : [{% for item in tweet_count_values %}
+                        {{item}},
+                      {% endfor %}],
+              spanGaps: false
+          }]
+        }
+        
+        // get chart canvas
+        var ctx = document.getElementById("myChartConversations7Days").getContext("2d");
+        
+        // create the chart using the chart canvas
+        var myChart = new Chart(ctx, {
+          type: 'line',
+          data: chartData,
+        });
+      </script>
+
+    <!-- Top-10 Locations -->
+    <script>
+        // Global parameters:
+        // do not resize the chart canvas when its container does (keep at 600x400px)
+        Chart.defaults.global.responsive = true;
+        
+        // define the chart data
+        var chartData = {
+          labels : [{% for item in locations %}
+                    "{{item}}",
+                    {% endfor %}],
+          datasets : [{
+              axis: 'y',
+              label: 'Location',
+              fill: true,
+              lineTension: 0.1,
+              backgroundColor: "rgba(75,192,192,0.4)",
+              borderColor: "rgba(75,192,192,1)",
+              borderCapStyle: 'butt',
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "rgba(75,192,192,1)",
+              pointBackgroundColor: "#fff",
+              pointBorderWidth: 1,
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              pointHoverBorderWidth: 2,
+              pointRadius: 1,
+              pointHitRadius: 10,
+              data : [{% for item in locations_frequency %}
+                        {{item}},
+                      {% endfor %}],
+              spanGaps: false
+          }]
+        }
+        
+        // get chart canvas
+        var ctx = document.getElementById("myChartTop10Location").getContext("2d");
+        
+        // create the chart using the chart canvas
+        var myChart = new Chart(ctx, {
+          type: 'horizontalBar',
+          data: chartData,        
+        });
+    </script>
+    
+    <!-- Top-10 Accounts -->
+    <script>
+        // Global parameters:
+        // do not resize the chart canvas when its container does (keep at 600x400px)
+        Chart.defaults.global.responsive = true;
+        
+        // define the chart data
+        var chartData = {
+          labels : [{% for item in reach_data_screen_name %}
+                    "{{item}}",
+                    {% endfor %}],
+          datasets : [{
+              axis: 'y',
+              label: 'Followers',
+              fill: true,
+              lineTension: 0.1,
+              backgroundColor: "rgba(75,192,192,0.4)",
+              borderColor: "rgba(75,192,192,1)",
+              borderCapStyle: 'butt',
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: 'miter',
+              pointBorderColor: "rgba(75,192,192,1)",
+              pointBackgroundColor: "#fff",
+              pointBorderWidth: 1,
+              pointHoverRadius: 5,
+              pointHoverBackgroundColor: "rgba(75,192,192,1)",
+              pointHoverBorderColor: "rgba(220,220,220,1)",
+              pointHoverBorderWidth: 2,
+              pointRadius: 1,
+              pointHitRadius: 10,
+              data : [{% for item in reach_data_followers %}
+                        {{item}},
+                      {% endfor %}],
+              spanGaps: false
+          }]
+        }
+        
+        // get chart canvas
+        var ctx = document.getElementById("myChartTop10Account").getContext("2d");
+        
+        // create the chart using the chart canvas
+        var myChart = new Chart(ctx, {
+          type: 'horizontalBar',
+          data: chartData,        
+        });
+      </script>
+
+  </body>
+</html>

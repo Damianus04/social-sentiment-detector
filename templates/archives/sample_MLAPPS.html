@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+
+    <!-- My CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    {% if title %}
+    <title>{{ title }} - Welcome to Online Sentiment Detector</title>
+    {% else %}
+    <title>Online Sentiment Detector</title>
+    {% endif %}
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">
+                MLAPPS is a collection of mini projects related to machine
+                learning, natural language processing and other topics about
+                data science. Please visit each application and give any
+                feedbacks via my
+                <a href="https://www.linkedin.com/in/damianus-deni/"
+                  >LinkedIn</a
+                >
+                or email.
+              </p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Contact</h4>
+              <ul class="list-unstyled">
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/damianus-deni/"
+                    class="text-white"
+                    >Follow on Linkedin</a
+                  >
+                </li>
+                <li>
+                  <a href="https://github.com/Damianus04" class="text-white"
+                    >Fork on Github</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.kaggle.com/damianusdeni"
+                    class="text-white"
+                    >Learn on Kaggle</a
+                  >
+                </li>
+                <li>
+                  <a href="#" class="text-white"
+                    >Email: damianus.deni@gmail.com</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container d-flex justify-content-between">
+          <a href="/" class="navbar-brand d-flex align-items-center nav-link">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              aria-hidden="true"
+              class="mr-2"
+              viewBox="0 0 24 24"
+              focusable="false"
+            >
+              <path
+                d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+              />
+              <circle cx="12" cy="13" r="4" />
+            </svg>
+            <strong>Online Sentiment Detector</strong>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarHeader"
+            aria-controls="navbarHeader"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <!-- HEADER END -->
+
+    <!-- MAIN -->
+    <!-- MAIN part is on index.html -->
+    <!-- MAIN END -->
+
+    <!-- Content Loader -->
+    {% block content %}
+    <div class="container">
+      {% block page_content %}{% endblock %}
+    </div>
+    {% endblock %}
+
+    <!-- FOOTER -->
+    <footer class="text-muted bg-dark">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>
+          This template &copy; Bootstrap
+        </p>
+        <p>
+          New to Bootstrap?
+          <a href="https://getbootstrap.com/">Visit the homepage</a> or read our
+          <a href="/docs/4.5/getting-started/introduction/"
+            >getting started guide</a
+          >.
+        </p>
+      </div>
+    </footer>
+    <!-- FOOTER END -->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{{ url_for('static', filename='script/script.js') }}"></script>
+  </body>
+</html>
+
+
+
+<!-- Backup 11 March 2021 -->
+# ROUTE FUNCTION
+# route to index.html
+@app.route('/', methods=["GET", "POST"])
+def index():
+    # Dummy Melbourne Data
+    table = real_estate.head(100)
+
+    # Get Tweet
+    if request.method == "GET":
+        return render_template('index.html')
+    elif request.method == "POST":
+        # Get Tweet
+        text_query = request.form['text']
+        tweet_data = get_tweets(text_query)
+
+    return render_template('index.html', data=table, tweet_data=tweet_data, text_query=text_query)
+
+
+    <!-- trial of get tweet -->
+    <div class="container text-center" style="margin-bottom: 80px;">
+      <form action="{{ url_for('index')}}" method="POST">
+        <div class="form-group">
+          <textarea
+            placeholder="Enter Keyword Here"
+            name="text"
+            class="form-control"
+            id="text"
+            rows="3"
+          ></textarea>
+          <input
+            id="inpkeyword"
+            type="submit"
+            class="btn btn-primary input-keyword"
+            value="Check"
+          />
+        </div>
+      </form>
+    </div>
+
+    <div class="containter">
+      <p>{{ tweet_data }}</p>
+      <p>{{ tweet_data }}</p>
+
+    </div>
+    <!-- trial of get tweet -->
+
+# my functions
+from static.src.plot import get_tweets
+
+# text = get_tweets('vaksin')
+# print(text)
+
+# @app.route('/', methods=["GET", "POST"])
+# def index():
+#     # Dummy Melbourne Data
+#     table = real_estate.head(100)
+
+#     # Get Tweet
+#     if request.method == "GET":
+#         return render_template('index.html')
+#     elif request.method == "POST":
+#         # Get Tweet
+#         text_query = request.form['text']
+#         tweet_data = get_tweets(text_query)
+
+#     return render_template('index.html', data=table, tweet_data=tweet_data, text_query=text_query)
+
+
+<!-- Linechart -->
+<div class="card" style="margin-top:2em;">
+  <div class="card-header">
+    <h2>Linechart</h2>
+  </div>
+  <canvas class="my-4" id="myChart" width="900" height="380"></canvas>
+</div>
+<!-- Linechart -->
+
+
+<!-- linechart -->
+<div class="row">
+  <div class="col">
+    <!-- Timeseries -->
+    <div class="col" style="margin-top:2em;">
+      <div class="card" style="margin-top:2em;">
+        <div class="card-header">
+          <h2>Linechart</h2>
+        </div>
+        <canvas class="my-4" id="myChartConversations7Days" width="900" height="380"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- backup 21 march 2021 -->
+<script>
+  var ctx = document.getElementById("myChartWordCloud");
+  var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      datasets: [{
+        data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+        lineTension: 0,
+        backgroundColor: 'transparent',
+        borderColor: '#007bff',
+        borderWidth: 4,
+        pointBackgroundColor: '#007bff'
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: false
+          }
+        }]
+      },
+      legend: {
+        display: false,
+      }
+    }
+  });
+</script>
+
