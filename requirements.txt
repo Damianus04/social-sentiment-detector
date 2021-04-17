@@ -9,7 +9,6 @@ tweepy
 # NLP
 nltk
 Sastrawi==1.0.1
-tweepy==3.9.0
 
 # Web App
 flask
