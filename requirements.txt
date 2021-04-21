@@ -5,6 +5,7 @@ pandas
 # Machine Learning
 scikit-learn
 tweepy
+joblib
 
 # NLP
 nltk
