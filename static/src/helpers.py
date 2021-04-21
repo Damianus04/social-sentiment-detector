@@ -1,33 +1,13 @@
 # Machine Learning Libraries
 import joblib
 from joblib import load
-from sklearn.metrics import confusion_matrix, classification_report, f1_score, recall_score, precision_score, plot_confusion_matrix, plot_roc_curve, roc_curve
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction.text import CountVectorizer
-from scipy import stats
-from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
-from sklearn.compose import ColumnTransformer
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.model_selection import GridSearchCV, RandomizedSearchCV, StratifiedKFold, KFold
-from sklearn.feature_selection import RFE
-from sklearn.impute import SimpleImputer
-from sklearn.pipeline import Pipeline
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import cross_val_score, StratifiedKFold
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import PolynomialFeatures
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
-from nltk.tokenize import word_tokenize, sent_tokenize
-from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 from string import punctuation
-import re
 import nltk
 import pandas as pd
 import tweepy
 import time
-import json
 pd.set_option('display.max_colwidth', 1000)
 
 

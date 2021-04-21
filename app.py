@@ -1,13 +1,10 @@
 # standard flask libraries
-from os import name, sep
 from flask import Flask, render_template, request
 import pandas as pd
 import json
 import time
 from datetime import datetime
 from joblib import load
-import joblib
-from sklearn.externals import joblib
 import nltk
 
 # my functions
