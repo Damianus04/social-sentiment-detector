@@ -13,7 +13,7 @@ from static.src.helpers import text_preprocessing
 
 # data
 real_estate = pd.read_csv('./data/melb_data.csv')
-model = load('model/rand_search_logreg_hyper_tfidf.joblib')
+model = load('model/rand_search_logreg_hyper_tfidf_sklearn24.joblib')
 
 app = Flask(__name__)
 
