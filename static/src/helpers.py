@@ -10,11 +10,6 @@ import tweepy
 import time
 pd.set_option('display.max_colwidth', 1000)
 
-
-# NLP Libraries
-# nltk.download('stopwords')
-# nltk.download('punkt')
-
 # NLP Libraries - Stemming Bahasa Indonesia - Sastrawi
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
