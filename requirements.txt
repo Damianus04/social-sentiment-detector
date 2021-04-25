@@ -3,7 +3,7 @@ numpy
 pandas
 
 # Machine Learning
-scikit-learn
+scikit-learn=0.22.2
 tweepy
 joblib
 
