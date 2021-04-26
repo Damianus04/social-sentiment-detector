@@ -196,7 +196,7 @@ def get_tweets(keyword='indonesia', location="-0.789275,113.921326,5000km", lang
 
 
 ######## PREDICT TWITTER TEXT ########
-def predict_sentiment(model, text_list, colname='tweet_text_preprocessed'):
+def predict_sentiment(model, text_list, colname):
     y_pred_desc_list = []
     y_pred = model.predict(text_list[colname])
     for i, t in enumerate(y_pred):

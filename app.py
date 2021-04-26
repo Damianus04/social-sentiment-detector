@@ -1,9 +1,6 @@
 # standard flask libraries
 from flask import Flask, render_template, request
 import pandas as pd
-import json
-import time
-from datetime import datetime
 from joblib import load
 import nltk
 
@@ -82,12 +79,10 @@ def keyword_search():
             )
 
             # Predict Twitter Text
+            colname = 'tweet_text_preprocessed'
             prediction_list = predict_sentiment(
-                model, tweet_data, colname='tweet_text_preprocessed')
+                model, tweet_data, colname)
             tweet_data['sentiment'] = prediction_list
-
-            # DEFINE ONLY BAD SENTIMENT
-            # tweet_data = tweet_data[tweet_data['sentiment'] == -1]
 
             sentiment_chart = tweet_data[['sentiment', 'tweet_text']].groupby(
                 ['sentiment'], as_index=False).count()
