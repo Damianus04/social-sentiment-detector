@@ -18,10 +18,6 @@ model = load('model/rand_search_logreg_hyper_tfidf_sklearn24.joblib')
 app = Flask(__name__)
 
 
-# text_sample_prediction = model.predict(text_sample)
-# print(model_joblib)
-# print(text_sample_prediction)
-
 ########## ROUTE FUNCTION ##########
 # Route to index.html
 @app.route('/')
