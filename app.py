@@ -18,7 +18,7 @@ app = Flask(__name__)
 ########## ROUTE FUNCTION ##########
 # Route to index.html
 
-y_pred = model.predict(['pelayanannya buruk sekali'])
+# y_pred = model.predict(['pelayanannya buruk sekali'])
 
 
 @app.route('/')
