@@ -10,7 +10,6 @@ joblib
 # NLP
 nltk
 Sastrawi
-string
 
 # Web App
 Flask
