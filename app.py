@@ -25,7 +25,7 @@ app = Flask(__name__)
 def index():
     # Dummy Melbourne Data
     table = real_estate.head(100)
-    return render_template('index.html', data=table, model=model, y_pred=y_pred)
+    return render_template('index.html', data=table, model=model)
 
 
 @app.route('/', methods=["GET", "POST"])
