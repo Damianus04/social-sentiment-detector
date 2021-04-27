@@ -9,8 +9,10 @@ joblib
 
 # NLP
 nltk
-Sastrawi==1.0.1
+Sastrawi
+string
 
 # Web App
+Flask
 flask
 gunicorn==20.1.0
