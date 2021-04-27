@@ -17,11 +17,15 @@ app = Flask(__name__)
 
 ########## ROUTE FUNCTION ##########
 # Route to index.html
+
+y_pred = model.predict(['pelayanannya buruk sekali'])
+
+
 @app.route('/')
 def index():
     # Dummy Melbourne Data
     table = real_estate.head(100)
-    return render_template('index.html', data=table, model=model)
+    return render_template('index.html', data=table, model=model, y_pred=y_pred)
 
 
 @app.route('/', methods=["GET", "POST"])
