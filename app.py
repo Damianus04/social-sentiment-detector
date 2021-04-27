@@ -21,7 +21,7 @@ app = Flask(__name__)
 def index():
     # Dummy Melbourne Data
     table = real_estate.head(100)
-    return render_template('index.html', data=table)
+    return render_template('index.html', data=table, model=model)
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -142,7 +142,8 @@ def keyword_search():
                            tweet_time_label=tweet_time_label, tweet_count_values=tweet_count_values, tweet_legend=tweet_legend,
                            tweet_sentiment_label=tweet_sentiment_label, tweet_sentiment_values=tweet_sentiment_values,
                            reach_data_screen_name=reach_data_screen_name, reach_data_followers=reach_data_followers,
-                           words=words, words_frequency=words_frequency, locations=locations, locations_frequency=locations_frequency
+                           words=words, words_frequency=words_frequency, locations=locations, locations_frequency=locations_frequency,
+                           model=model
                            )
 
 
