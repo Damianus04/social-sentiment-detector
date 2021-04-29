@@ -17,10 +17,6 @@ app = Flask(__name__)
 
 ########## ROUTE FUNCTION ##########
 # Route to index.html
-
-# y_pred = model.predict(['pelayanannya buruk sekali'])
-
-
 @app.route('/')
 def index():
     # Dummy Melbourne Data
@@ -146,8 +142,7 @@ def keyword_search():
                            tweet_time_label=tweet_time_label, tweet_count_values=tweet_count_values, tweet_legend=tweet_legend,
                            tweet_sentiment_label=tweet_sentiment_label, tweet_sentiment_values=tweet_sentiment_values,
                            reach_data_screen_name=reach_data_screen_name, reach_data_followers=reach_data_followers,
-                           words=words, words_frequency=words_frequency, locations=locations, locations_frequency=locations_frequency,
-                           model=model
+                           words=words, words_frequency=words_frequency, locations=locations, locations_frequency=locations_frequency
                            )
 
 
