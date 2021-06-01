@@ -176,12 +176,12 @@
         });
       </script>
     
-      <!-- Conversations Trend-->
+      <!-- Conversations Trend -> mysql-->
     <script>
-        // do not resize the chart canvas when its container does (keep at 600x400px)
+        // do not resize the chart canvas when its container does (keep at 600x400px)  -> mysql
         Chart.defaults.global.responsive = true;
         
-        // define the chart data
+        // define the chart data  -> mysql
         var chartData = {
           labels : [{% for item in tweet_time_label %}
                     "{{item}}",
