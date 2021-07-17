@@ -270,128 +270,95 @@ def keyword_search():
                                )
 
 
-# @app.route('/bad-sentiment', methods=["GET", "POST"])
-# def bad_sentiment():
-#     # Dummy Melbourne Data
-#     df = real_estate
+@app.route('/positive-sentiment', methods=["GET", "POST"])
+def positive_sentiment():
+    # MySQL Database
+    url = 'http://localhost:5005/tweet'
+    result = requests.get(url)
+    result = result.json()
+    result_in_df = pd.DataFrame(columns=["id", "tweet_id", "user_name", "screen_name", "profile_url",
+                                         "created_at", "created_at_date", "created_at_day_name",
+                                         "created_at_month", "created_at_year", "created_at_time1",
+                                         "created_at_time2", "tweet_text", "location",
+                                         "followers", "following", "listed_count", "profile_image",
+                                         "profile_banner_image", "news_url_1", "news_url_2",
+                                         "tweet_data_preprocessed", "sentiment", "sentiment_description"],
+                                data=result)
+    result_in_df = result_in_df[result_in_df['sentiment_description'] == 'Good']
 
-#     # Get Tweet
-#     if request.method == "GET":
-#         return render_template('index.html')
-#     elif request.method == "POST":
-#         # Get Tweet
-#         text_query = request.form['text']
-#         tweet_data = get_tweets(text_query)
+    # Total Conversations & Average Mentions
+    try:
+        total_mentions = len(result_in_df)
+        average_mentions = round(total_mentions/7)
 
-#         # add text tweet stats
-#         total_mentions = len(tweet_data)
-#         if total_mentions == 0 or text_query == " ":
-#             average_mentions = 0
-#         else:
-#             average_mentions = round(total_mentions/7)
+        # conversation trends
+        time1 = result_in_df[['created_at_time1', 'tweet_text']].groupby(
+            ['created_at_time1'], as_index=False).count()
+        time2 = result_in_df[['created_at_time2', 'tweet_text']].groupby(
+            ['created_at_time2'], as_index=False).count()
 
-#         try:
-#             # add detailed datetime features
-#             tweet_data['date'] = tweet_data.created_at.apply(
-#                 lambda x: x.date())
-#             tweet_data['day'] = tweet_data.created_at.apply(
-#                 lambda x: x.day_name())
-#             tweet_data['month'] = tweet_data.created_at.apply(
-#                 lambda x: x.month_name())
-#             tweet_data['year'] = tweet_data.created_at.apply(
-#                 lambda x: x.year)
-#             tweet_data['time1'] = tweet_data.created_at.apply(
-#                 lambda x: x.to_period('H').strftime('%d-%b-%y'))
-#             tweet_data['time2'] = tweet_data.created_at.apply(
-#                 lambda x: x.to_period('H').strftime('%d-%b-%y %H:%M'))
+        tweet_legend = "conversations"
+        # choose whether to use time1 (day & hour) or time2 (hour)
+        if len(time1.created_at_time1) > 1:
+            tweet_time_label = list(time1.created_at_time1)
+            tweet_count_values = list(time1.tweet_text)
+        else:
+            tweet_time_label = list(time2.created_at_time2)
+            tweet_count_values = list(time2.tweet_text)
 
-#             time1 = tweet_data[['time1', 'tweet_text']].groupby(
-#                 ['time1'], as_index=False).count()
-#             time2 = tweet_data[['time2', 'tweet_text']].groupby(
-#                 ['time2'], as_index=False).count()
+        # sentiment
+        sentiment_chart = result_in_df[['sentiment_description', 'tweet_text']].groupby(
+            ['sentiment_description'], as_index=False).count()
+        tweet_sentiment_label = list(sentiment_chart.sentiment_description)
+        tweet_sentiment_values = list(sentiment_chart.tweet_text)
 
-#             tweet_legend = "conversations"
-#             # choose whether to use time1 (day & hour) or time2 (hour)
-#             if len(time1.time1) > 1:
-#                 tweet_time_label = list(time1.time1)
-#                 tweet_count_values = list(time1.tweet_text)
-#             else:
-#                 tweet_time_label = list(time2.time2)
-#                 tweet_count_values = list(time2.tweet_text)
+        # potential reach data
+        reach_data = result_in_df[['screen_name', 'followers']].head(
+            10).sort_values(by='followers', ascending=False)
+        reach_data_screen_name = list(reach_data.screen_name)
+        reach_data_followers = list(reach_data.followers)
 
-#             # DEFINE ONLY BAD SENTIMENT
-#             # tweet_data = tweet_data[tweet_data['sentiment'] == -1]
+        # word distribution
+        word_freq_dist_dict = []
+        for i in result_in_df.tweet_data_preprocessed:
+            word_freq_dist_dict.extend(i.split(' '))
 
-#             # Preprocessing 'tweet_text'
-#             tweet_data['tweet_text_preprocessed'] = tweet_data['tweet_text'].apply(
-#                 lambda x: text_preprocessing(x)
-#             )
+        word_freq_dist = nltk.FreqDist(word_freq_dist_dict)
+        top10words = word_freq_dist
+        top10words = word_freq_dist.most_common(20)
+        words = []
+        words_frequency = []
+        for i in top10words:
+            words.append(i[0])
+            words_frequency.append(i[1])
 
-#             # Predict Twitter Text
-#             prediction_list = predict_sentiment(
-#                 model, tweet_data, colname='tweet_text_preprocessed')
-#             tweet_data['sentiment'] = prediction_list
+        # location distribution
+        top10locations = pd.DataFrame(
+            result_in_df['location'].value_counts())[:20]
+        locations = top10locations.index
+        locations_frequency = [i for i in top10locations.location]
+    except:
+        total_mentions
+        average_mentions
+        tweet_legend = "conversations"
+        tweet_time_label = ['None']
+        tweet_count_values = [0]
+        tweet_sentiment_label = ['None']
+        tweet_sentiment_values = [0]
+        reach_data_screen_name = ['None']
+        reach_data_followers = [0]
+        words = ['None']
+        words_frequency = [0]
+        locations = ['None']
+        locations_frequency = [0]
 
-#             sentiment_chart = tweet_data[['sentiment', 'tweet_text']].groupby(
-#                 ['sentiment'], as_index=False).count()
-#             tweet_sentiment_label = list(sentiment_chart.sentiment)
-#             tweet_sentiment_values = list(sentiment_chart.tweet_text)
-
-#             # potential reach data
-#             reach_data = tweet_data[['screen_name', 'followers']].head(
-#                 10).sort_values(by='followers', ascending=False)
-#             reach_data_screen_name = list(reach_data.screen_name)
-#             reach_data_followers = list(reach_data.followers)
-
-#             # word distribution
-#             word_freq_dist_dict = []
-#             for i in tweet_data.tweet_text_preprocessed:
-#                 word_freq_dist_dict.extend(i.split(' '))
-
-#             word_freq_dist = nltk.FreqDist(word_freq_dist_dict)
-#             top10words = word_freq_dist
-#             top10words = word_freq_dist.most_common(20)
-#             words = []
-#             words_frequency = []
-#             for i in top10words:
-#                 words.append(i[0])
-#                 words_frequency.append(i[1])
-
-#             # location distribution
-#             top10locations = pd.DataFrame(
-#                 tweet_data['location'].value_counts())[:20]
-#             locations = top10locations.index
-#             locations_frequency = [i for i in top10locations.location]
-
-#         except:
-#             tweet_legend = "conversations"
-#             tweet_time_label = ['None']
-#             tweet_count_values = [0]
-#             tweet_sentiment_label = ['None']
-#             tweet_sentiment_values = [0]
-#             reach_data_screen_name = ['None']
-#             reach_data_followers = [0]
-#             words = ['None']
-#             words_frequency = [0]
-#             locations = ['None']
-#             locations_frequency = [0]
-
-#     # Melbourne Data
-#     df_Regionname = df[['Price', 'Regionname']].groupby(
-#         ['Regionname'], as_index=False).mean()
-#     legend = 'Average Price'
-#     labels = list(df_Regionname.Regionname)
-#     values = list(df_Regionname.Price)
-
-#     return render_template('bad-sentiment.html',
-#                            tweet_data=tweet_data, text_query=text_query,
-#                            total_mentions=total_mentions, average_mentions=average_mentions,
-#                            legend=legend, labels=labels, values=values,
-#                            tweet_time_label=tweet_time_label, tweet_count_values=tweet_count_values, tweet_legend=tweet_legend,
-#                            tweet_sentiment_label=tweet_sentiment_label, tweet_sentiment_values=tweet_sentiment_values,
-#                            reach_data_screen_name=reach_data_screen_name, reach_data_followers=reach_data_followers,
-#                            words=words, words_frequency=words_frequency, locations=locations, locations_frequency=locations_frequency
-#                            )
+    return render_template('positive-sentiment.html', result=result, result_in_df=result_in_df,
+                           total_mentions=total_mentions, average_mentions=average_mentions,
+                           locations=locations, locations_frequency=locations_frequency,
+                           tweet_time_label=tweet_time_label, tweet_count_values=tweet_count_values, tweet_legend=tweet_legend,
+                           reach_data_screen_name=reach_data_screen_name, reach_data_followers=reach_data_followers,
+                           words=words, words_frequency=words_frequency,
+                           tweet_sentiment_label=tweet_sentiment_label, tweet_sentiment_values=tweet_sentiment_values)
 
 
 ########## ROUTE TO MYSQL FUNCTION ##########

@@ -16,7 +16,7 @@
 --     tweet_id BIGINT,
 -- 	user_name VARCHAR(255),
 -- 	screen_name VARCHAR(255),
--- 	profile_url VARCHAR(65535),
+-- 	profile_url TEXT,
 -- 	created_at DATETIME,
 -- 	created_at_date DATETIME,
 -- 	created_at_day_name VARCHAR(10),
@@ -24,19 +24,20 @@
 -- 	created_at_year INT,
 -- 	created_at_time1 varchar(50),
 -- 	created_at_time2 varchar(50),
--- 	tweet_text TEXT,
+-- 	tweet_text MEDIUMTEXT,
 -- 	location VARCHAR(255),
 -- 	followers INT,
 -- 	following INT,
 -- 	listed_count INT,
--- 	profile_image VARCHAR(65535),
--- 	profile_banner_image VARCHAR(65535),
--- 	news_url_1 VARCHAR(65535),
--- 	news_url_2 VARCHAR(65535),
---     tweet_data_preprocessed TEXT,
+-- 	profile_image TEXT,
+-- 	profile_banner_image TEXT,
+-- 	news_url_1 TEXT,
+-- 	news_url_2 TEXT,
+--     tweet_data_preprocessed MEDIUMTEXT,
 --     sentiment INT,
+--     sentiment_description varchar(50),
 --     PRIMARY KEY (id)
--- )
+-- );
 
 -- use twitter
 -- show tables

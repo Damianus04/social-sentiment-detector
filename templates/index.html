@@ -79,7 +79,7 @@
                 Sentiment
               </button>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="#" method="POST">Good</a>
+                <a class="dropdown-item" href="{{ url_for('positive_sentiment')}}" method="POST">Good</a>
                 <a class="dropdown-item" href="#">Neutral</a>
                 <a class="dropdown-item" href="#">Bad</a>
               </div>
@@ -314,10 +314,11 @@
           </div>
         </div>
 
-        <!-- <div>
+        <div>
           <h4>Test to Display Data</h4>
-          {{ result }}
-        </div> -->
+ 
+          
+        </div>
 
         {% block page_content %}{% endblock %}
       </div>

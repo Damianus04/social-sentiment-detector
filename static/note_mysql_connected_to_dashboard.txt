@@ -1,0 +1,61 @@
+Update data on MySQL Workbench
+- use file 20210529 - Twitter API (under file static)
+	there are 4 parts
+	- request (get)
+	- post (post/input)
+	- patch (update)
+	- delete
+- the data inputed with post method will be stored in local host
+- the dashboard request data (get) via localhost:5005/tweet
+
+
+
+Filtering Menu
+- Positive Sentiment --> can filter but the result is still not good
+
+
+
+
+
+Configuring GCP x MySQL Workbench
+https://www.youtube.com/watch?v=ZiJkEAfvFUc
+
+GCP
+1. open console
+2. open SQL menu (if not any, there will be instruction to create a new instance)
+3. choose MySQL
+	1. instance ID: gcp-mysql-social-media-database
+	2. password: @12345
+	3. database version: mysql 5.7
+	4. region: us-central1(Iowa)
+		- Multiple zones (Highly available)
+	5. machine type: 1 vCPU, 3.75 GB
+	6. storage: SSD
+		- storage capacity: 10 GB
+		- enable automatic storage increase
+	7. connections: public ip
+		- name: my pc1
+		- network: 139.228.204.72: browsse "whats my ip")
+	8. backups: default (checked)
+   
+4. click create
+
+
+MySQL Workbench
+1. open home
+2. add (+) MySQL Connections
+3. Connection name: gcp-mysql-social-media-database-remote-connection
+	- hostname: public ip address on overview console (GCP): 34.68.246.107
+	- username: root
+	- password: if forgotten, change the password on gcp console (user)
+	- test connection (if failed, add connections/network with "what's my ip")
+
+4. open the new connection
+5. create sql query --> now you can query the database in mysql stored in GCP
+6. create database first before creating tables
+
+
+
+
+
+
